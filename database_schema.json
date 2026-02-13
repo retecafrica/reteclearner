@@ -1,0 +1,185 @@
+{
+  "schema_version": "1.0",
+  "description": "RETEC Africa Career-Led Learning Database Schema",
+  
+  "careers": {
+    "description": "Comprehensive career profiles with daily tasks and skills",
+    "structure": {
+      "career_id": "string (unique identifier)",
+      "career_name": "string",
+      "career_cluster": "string (one of 14 clusters)",
+      "description": "string",
+      "education_level": "array (JHS, SHS, Tertiary, etc.)",
+      "key_skills": "array of strings",
+      "daily_tasks": "array of strings",
+      "tools_used": "array of strings",
+      "salary_range_ghana": "object {min: number, max: number, currency: 'GHS'}",
+      "growth_potential": "string (Low, Medium, High)",
+      "related_careers": "array of career_ids"
+    },
+    "example": {
+      "career_id": "civil_engineer_001",
+      "career_name": "Civil Engineer",
+      "career_cluster": "Engineering & Technology",
+      "description": "Designs and oversees construction of infrastructure like roads, bridges, and buildings",
+      "education_level": ["JHS", "SHS", "Tertiary"],
+      "key_skills": ["Mathematics", "Physics", "Technical Drawing", "Problem Solving", "Project Management"],
+      "daily_tasks": [
+        "Calculate structural loads and material requirements",
+        "Create technical drawings and blueprints",
+        "Inspect construction sites for safety",
+        "Solve engineering problems on-site",
+        "Manage project budgets and timelines"
+      ],
+      "tools_used": ["AutoCAD", "Calculator", "Measuring tools", "Safety equipment"],
+      "salary_range_ghana": {"min": 3000, "max": 15000, "currency": "GHS"},
+      "growth_potential": "High",
+      "related_careers": ["architect_001", "mechanical_engineer_001", "quantity_surveyor_001"]
+    }
+  },
+
+  "curriculum": {
+    "description": "GES JHS Curriculum structure - subjects, topics, and learning objectives",
+    "structure": {
+      "subject_id": "string (unique identifier)",
+      "subject_name": "string",
+      "level": "string (JHS1, JHS2, JHS3)",
+      "term": "string (Term 1, Term 2, Term 3)",
+      "topics": "array of topic objects"
+    },
+    "topic_structure": {
+      "topic_id": "string (unique identifier)",
+      "topic_name": "string",
+      "week_number": "number",
+      "learning_objectives": "array of strings",
+      "subtopics": "array of strings",
+      "difficulty_level": "string (Basic, Intermediate, Advanced)"
+    },
+    "example": {
+      "subject_id": "math_jhs1_t1",
+      "subject_name": "Mathematics",
+      "level": "JHS1",
+      "term": "Term 1",
+      "topics": [
+        {
+          "topic_id": "math_jhs1_t1_w1",
+          "topic_name": "Numbers and Numeration",
+          "week_number": 1,
+          "learning_objectives": [
+            "Read and write numbers up to 1,000,000",
+            "Compare and order large numbers",
+            "Round numbers to specified place values"
+          ],
+          "subtopics": ["Place value", "Rounding", "Number ordering"],
+          "difficulty_level": "Basic"
+        }
+      ]
+    }
+  },
+
+  "career_curriculum_mappings": {
+    "description": "Links careers to specific curriculum topics with relevance scores",
+    "structure": {
+      "mapping_id": "string (unique identifier)",
+      "career_id": "string (references careers)",
+      "subject_id": "string (references curriculum)",
+      "topic_id": "string (references specific topic)",
+      "relevance_score": "number (1-10, how critical this topic is)",
+      "real_world_application": "string (how professionals use this daily)",
+      "example_scenario": "string (concrete example)",
+      "required_for": "string (what career task needs this)"
+    },
+    "example": {
+      "mapping_id": "map_001",
+      "career_id": "civil_engineer_001",
+      "subject_id": "math_jhs1_t1",
+      "topic_id": "math_jhs1_t1_w1",
+      "relevance_score": 9,
+      "real_world_application": "Civil engineers calculate material quantities, project costs, and structural measurements using large numbers daily",
+      "example_scenario": "Calculating cement bags needed: 50,000 blocks × 2.5 bags per 100 blocks = 1,250 bags",
+      "required_for": "Budget estimation, quantity surveying, material ordering"
+    }
+  },
+
+  "clt_content": {
+    "description": "Career-Led Track weekly schemes and daily lesson plans",
+    "structure": {
+      "clt_id": "string (unique identifier)",
+      "clt_name": "string",
+      "career_cluster": "string",
+      "level": "string (JHS1, JHS2, JHS3)",
+      "term": "string",
+      "subjects_integrated": "array of strings",
+      "total_weeks": "number",
+      "weeks": "array of week objects"
+    },
+    "week_structure": {
+      "week_number": "number",
+      "theme": "string",
+      "weekly_objectives": "array of strings",
+      "focus_areas": "object {subject: focus_description}",
+      "days": "array of day objects"
+    },
+    "day_structure": {
+      "day_number": "number",
+      "learning_goal": "string",
+      "quick_definitions": "array of objects {term: string, definition: string}",
+      "discovery_steps": {
+        "engage": "string",
+        "explore": "array of activity options",
+        "explain": "string",
+        "elaborate": "string",
+        "evaluate": "string"
+      },
+      "daily_reflection": "string (prompt for student)",
+      "parent_conversation_starters": "array of strings",
+      "career_nugget": "string",
+      "outputs_expected": "array of strings"
+    },
+    "example": {
+      "clt_id": "eng_jhs1_t1",
+      "clt_name": "Engineering",
+      "career_cluster": "Engineering & Technology",
+      "level": "JHS1",
+      "term": "Term 1",
+      "subjects_integrated": ["Mathematics", "Science", "BDT", "Social Studies"],
+      "total_weeks": 10,
+      "weeks": [
+        {
+          "week_number": 1,
+          "theme": "Discovering who engineers are and what they do",
+          "weekly_objectives": [
+            "Define engineering and identify engineers' roles",
+            "Recognize engineered objects in daily life",
+            "Understand basic problem-solving approach"
+          ],
+          "focus_areas": {
+            "social_studies": "Understanding professions and community helpers",
+            "mathematics": "Counting and categorizing objects"
+          },
+          "days": []
+        }
+      ]
+    }
+  },
+
+  "career_clusters": {
+    "description": "The 14 main career clusters used in RETEC system",
+    "list": [
+      "Engineering & Technology",
+      "Business & Marketing",
+      "Health & Medicine",
+      "Education & Training",
+      "Agriculture & Natural Resources",
+      "Arts, Culture & Entertainment",
+      "Hospitality & Tourism",
+      "Information Technology & Digital Services",
+      "Legal & Government Services",
+      "Manufacturing & Production",
+      "Transportation & Logistics",
+      "Construction & Architecture",
+      "Finance & Banking",
+      "Security & Public Safety"
+    ]
+  }
+}
